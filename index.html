@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal de Relatórios</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 450px;
+            padding: 20px;
+        }
+
+        .login-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            color: white;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        p {
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            color: #555;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 10px;
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-login:active {
+            transform: translateY(0);
+        }
+
+        .error-message {
+            background: #fee;
+            color: #c33;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+            font-size: 14px;
+        }
+
+        .dashboard-container {
+            display: none;
+            width: 100vw;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: #f5f5f5;
+        }
+
+        .dashboard-header {
+            background: white;
+            padding: 15px 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .dashboard-title {
+            font-size: 20px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .user-badge {
+            background: #667eea;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .btn-logout {
+            padding: 10px 20px;
+            background: #ff4757;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .btn-logout:hover {
+            background: #ff3838;
+        }
+
+        .dashboard-content {
+            height: calc(100vh - 70px);
+            padding: 0;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .password-toggle {
+            position: relative;
+        }
+
+        .toggle-icon {
+            position: absolute;
+            right: 14px;
+            top: 42px;
+            cursor: pointer;
+            color: #999;
+            user-select: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Tela de Login -->
+    <div class="container" id="loginContainer">
+        <div class="login-card">
+            <div class="logo">📊</div>
+            <h1>Portal de Relatórios</h1>
+            <p>Faça login para acessar seus dashboards</p>
+            
+            <div class="error-message" id="errorMessage">
+                Usuário ou senha incorretos!
+            </div>
+
+            <form id="loginForm" onsubmit="return false;">
+                <div class="input-group">
+                    <label for="username">Usuário</label>
+                    <input type="text" id="username" placeholder="Digite seu usuário" required>
+                </div>
+
+                <div class="input-group password-toggle">
+                    <label for="password">Senha</label>
+                    <input type="password" id="password" placeholder="Digite sua senha" required>
+                    <span class="toggle-icon" onclick="togglePassword()">👁️</span>
+                </div>
+
+                <button type="submit" class="btn-login" onclick="login()">
+                    Entrar
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Tela do Dashboard -->
+    <div class="dashboard-container" id="dashboardContainer">
+        <div class="dashboard-header">
+            <div class="user-info">
+                <div class="dashboard-title">📊 Dashboard Power BI</div>
+                <div class="user-badge" id="userBadge"></div>
+            </div>
+            <button class="btn-logout" onclick="logout()">Sair</button>
+        </div>
+        <div class="dashboard-content" id="dashboardContent">
+            <div class="loading">
+                <div class="spinner"></div>
+                <p>Carregando relatório...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        
+        const usuarios = {
+            'GuilhermeBrito': {
+                senha: 'G545862',
+                powerbi: 'https://app.powerbi.com/view?r=eyJrIjoiZDYwMDk1M2UtY2YwOS00MDdkLTk3MzUtMTI1MzU4YTc1OWY5IiwidCI6IjE0Y2JkNWE3LWVjOTQtNDZiYS1iMzE0LWNjMGZjOTcyYTE2MSIsImMiOjh9',
+               
+            },
+            'FOliveira': {
+                senha: 'F12345',
+                powerbi: 'https://app.powerbi.com/view?r=eyJrIjoiOGIyZTVmMTMtYjZiMy00ZDU4LTgxMjAtMjQ1YTVhODI5NDNkIiwidCI6Ijg4OTY3NzBlLTI5YjYtNDNjOC05YjAyLWZjMzhhZDVhMGUyMCJ9',
+                
+            },
+            'demo': {
+                senha: 'demo123',
+                powerbi: 'https://app.powerbi.com/view?r=eyJrIjoiZDYwMDk1M2UtY2YwOS00MDdkLTk3MzUtMTI1MzU4YTc1OWY5IiwidCI6IjE0Y2JkNWE3LWVjOTQtNDZiYS1iMzE0LWNjMGZjOTcyYTE2MSIsImMiOjh9',
+                nome: 'Demo User'
+            }
+        };
+
+        
+        let usuarioLogado = null;
+
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('errorMessage');
+
+            // Verifica se usuário existe e senha está correta
+            if (usuarios[username] && usuarios[username].senha === password) {
+                // Login bem-sucedido
+                errorMessage.style.display = 'none';
+                usuarioLogado = username;
+                
+                // Esconde tela de login
+                document.getElementById('loginContainer').style.display = 'none';
+                
+                // Mostra dashboard
+                document.getElementById('dashboardContainer').style.display = 'block';
+                
+                // Exibe nome do usuário
+                document.getElementById('userBadge').textContent = usuarios[username].nome || username;
+                
+                // Carrega o Power BI específico desse usuário
+                loadPowerBI(usuarios[username].powerbi);
+                
+                // Salva sessão
+                sessionStorage.setItem('loggedIn', 'true');
+                sessionStorage.setItem('username', username);
+            } else {
+                // Login falhou
+                errorMessage.style.display = 'block';
+                document.getElementById('password').value = '';
+            }
+        }
+
+        function loadPowerBI(url) {
+            const content = document.getElementById('dashboardContent');
+            
+            // iframe com o Power BI específico do usuário
+            setTimeout(() => {
+                content.innerHTML = `
+                    <iframe 
+                        src="${url}" 
+                        frameborder="0" 
+                        allowFullScreen="true">
+                    </iframe>
+                `;
+            }, 800);
+
+        }
+
+        function logout() {
+            // Limpa sessão
+            sessionStorage.removeItem('loggedIn');
+            sessionStorage.removeItem('username');
+            usuarioLogado = null;
+            
+            // Volta para tela de login
+            document.getElementById('dashboardContainer').style.display = 'none';
+            document.getElementById('loginContainer').style.display = 'flex';
+            document.getElementById('dashboardContent').innerHTML = `
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>Carregando relatório...</p>
+                </div>
+            `;
+            
+            // Limpa campos
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+        }
+
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const icon = document.querySelector('.toggle-icon');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                icon.textContent = '🙈';
+            } else {
+                passwordInput.type = 'password';
+                icon.textContent = '👁️';
+            }
+        }
+
+        // Permite login com Enter
+        document.getElementById('password').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                login();
+            }
+        });
+
+        document.getElementById('username').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                login();
+            }
+        });
+
+        // Verifica se já está logado ao carregar a página
+        window.onload = function() {
+            if (sessionStorage.getItem('loggedIn') === 'true') {
+                const username = sessionStorage.getItem('username');
+                if (usuarios[username]) {
+                    usuarioLogado = username;
+                    document.getElementById('loginContainer').style.display = 'none';
+                    document.getElementById('dashboardContainer').style.display = 'block';
+                    document.getElementById('userBadge').textContent = usuarios[username].nome || username;
+                    loadPowerBI(usuarios[username].powerbi);
+                }
+            }
+        }
+    </script>
+</body>
+</html>
