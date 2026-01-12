@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -303,12 +304,26 @@
         }
 
         .dashboard-title {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 4px;
+        }
+
+        .dashboard-title-main {
             font-size: 20px;
             color: #1f2937;
             font-weight: 700;
             display: flex;
             align-items: center;
             gap: 8px;
+        }
+
+        .dashboard-title-sub {
+            font-size: 13px;
+            color: #6b7280;
+            font-weight: 500;
+            padding-left: 28px;
         }
 
         .user-badge {
@@ -458,8 +473,13 @@
                 gap: 10px;
             }
 
-            .dashboard-title {
-                font-size: 18px;
+            .dashboard-title-main {
+                font-size: 16px;
+            }
+
+            .dashboard-title-sub {
+                font-size: 12px;
+                padding-left: 24px;
             }
 
             .user-badge {
@@ -551,8 +571,11 @@
         <div class="dashboard-header">
             <div class="user-info">
                 <div class="dashboard-title">
-                    <span>📊</span>
-                    <span>Dashboard Power BI</span>
+                    <div class="dashboard-title-main">
+                        <span>📊</span>
+                        <span id="dashboardTitleMain"></span>
+                    </div>
+                    <div class="dashboard-title-sub" id="dashboardTitleSub"></div>
                 </div>
                 <div class="user-badge" id="userBadge"></div>
             </div>
@@ -588,12 +611,13 @@
             'FOliveira': {
                 senha: 'F12345',
                 powerbi: 'https://app.powerbi.com/view?r=eyJrIjoiOGIyZTVmMTMtYjZiMy00ZDU4LTgxMjAtMjQ1YTVhODI5NDNkIiwidCI6Ijg4OTY3NzBlLTI5YjYtNDNjOC05YjAyLWZjMzhhZDVhMGUyMCJ9',
-             
+                titulo: 'FOliveira',
+                subtitulo: 'Dashboard'
             },
             'GVSGrupo': {
                 senha: '@ggvs1225',
                 powerbi: 'https://app.powerbi.com/view?r=eyJrIjoiOGIyZTVmMTMtYjZiMy00ZDU4LTgxMjAtMjQ1YTVhODI5NDNkIiwidCI6Ijg4OTY3NzBlLTI5YjYtNDNjOC05YjAyLWZjMzhhZDVhMGUyMCJ9',
-                nome: 'GVS Grupo'
+                nome: 'GVS Grupo',
                 titulo: 'InsightHub | Estratégia orientada por dados',
                 subtitulo: 'Portal de Indicadores'
             }
@@ -612,7 +636,11 @@
                 
                 document.getElementById('loginContainer').style.display = 'none';
                 document.getElementById('dashboardContainer').style.display = 'block';
-                document.getElementById('userBadge').textContent = usuarios[username].nome || username;
+                
+                // Atualizar títulos e badge
+                document.getElementById('dashboardTitleMain').textContent = usuarios[username].titulo;
+                document.getElementById('dashboardTitleSub').textContent = usuarios[username].subtitulo;
+                document.getElementById('userBadge').textContent = username;
                 
                 loadPowerBI(usuarios[username].powerbi);
                 
@@ -697,7 +725,12 @@
                     usuarioLogado = username;
                     document.getElementById('loginContainer').style.display = 'none';
                     document.getElementById('dashboardContainer').style.display = 'block';
-                    document.getElementById('userBadge').textContent = usuarios[username].nome || username;
+                    
+                    // Atualizar títulos e badge
+                    document.getElementById('dashboardTitleMain').textContent = usuarios[username].titulo;
+                    document.getElementById('dashboardTitleSub').textContent = usuarios[username].subtitulo;
+                    document.getElementById('userBadge').textContent = username;
+                    
                     loadPowerBI(usuarios[username].powerbi);
                 }
             }
@@ -710,7 +743,6 @@
     </script>
 </body>
 </html>
-
 
 
 
