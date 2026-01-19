@@ -23,7 +23,6 @@
             overflow: hidden;
         }
 
-        /* Animação de fundo */
         body::before {
             content: '';
             position: absolute;
@@ -39,7 +38,6 @@
             100% { transform: translateX(-50%) translateY(-50%) rotate(360deg); }
         }
 
-        /* Partículas flutuantes */
         .particle {
             position: absolute;
             width: 3px;
@@ -270,7 +268,222 @@
             75% { transform: translateX(10px); }
         }
 
-        /* Dashboard Styles */
+        .environment-selector {
+            display: none;
+            width: 100%;
+            max-width: 520px;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+            animation: slideIn 0.4s ease;
+        }
+
+        @keyframes slideIn {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .environment-card {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px 35px;
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.3),
+                0 0 0 1px rgba(255, 255, 255, 0.1);
+        }
+
+        .env-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .env-header h2 {
+            color: #1a1a2e;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .env-header p {
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .env-options {
+            display: grid;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .env-option {
+            position: relative;
+            background: #f9fafb;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .env-option:hover {
+            border-color: #667eea;
+            background: white;
+            transform: translateX(4px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+        }
+
+        .env-option.selected {
+            border-color: #667eea;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        }
+
+        .env-option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .env-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+
+        .env-option.production .env-icon {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+
+        .env-option.homologacao .env-icon {
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+        }
+
+        .env-info {
+            flex: 1;
+        }
+
+        .env-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+
+        .env-title h3 {
+            color: #1a1a2e;
+            font-size: 16px;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .env-badge {
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .env-option.production .env-badge {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .env-option.homologacao .env-badge {
+            background: #ede9fe;
+            color: #5b21b6;
+        }
+
+        .env-description {
+            color: #6b7280;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .env-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-back {
+            flex: 1;
+            padding: 14px;
+            background: #f3f4f6;
+            color: #374151;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-back:hover {
+            background: #e5e7eb;
+        }
+
+        .btn-continue {
+            flex: 2;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-continue::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-continue:hover::before {
+            left: 100%;
+        }
+
+        .btn-continue:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
+        }
+
+        .btn-continue:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
         .dashboard-container {
             display: none;
             width: 100vw;
@@ -295,6 +508,11 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid #e5e7eb;
+            transition: all 0.3s ease;
+        }
+
+        .dashboard-header.hidden {
+            display: none;
         }
 
         .user-info {
@@ -324,7 +542,6 @@
             color: #6b7280;
             font-weight: 500;
             margin-left: 30px;
-            padding-left: 0px;
         }
 
         .user-badge {
@@ -345,10 +562,51 @@
             font-size: 14px;
         }
 
+        .env-indicator {
+            padding: 6px 12px;
+            border-radius: 16px;
+            font-size: 12px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .env-indicator.production {
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            color: #065f46;
+        }
+
+        .env-indicator.homologacao {
+            background: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%);
+            color: #5b21b6;
+        }
+
         .header-actions {
             display: flex;
             gap: 12px;
             align-items: center;
+        }
+
+        .btn-change-env {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-size: 14px;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-change-env:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
         }
 
         .btn-fullscreen {
@@ -391,6 +649,123 @@
             height: calc(100vh - 70px);
             padding: 0;
             position: relative;
+            transition: height 0.3s ease;
+        }
+
+        .dashboard-content.fullheight {
+            height: 100vh;
+        }
+
+        .btn-minimize {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.95);
+            color: #667eea;
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-size: 20px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-minimize:hover {
+            background: #667eea;
+            color: white;
+            transform: scale(1.08);
+            box-shadow: 0 6px 16px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-minimize.show {
+            display: flex;
+        }
+
+        .unavailable-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            max-width: 420px;
+            padding: 40px;
+            animation: fadeInScale 0.5s ease;
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+        .unavailable-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 25px;
+            position: relative;
+            animation: gentle-bounce 2.5s ease-in-out infinite;
+        }
+
+        @keyframes gentle-bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .unavailable-icon::before {
+            content: '🚧';
+            font-size: 80px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .unavailable-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a1a2e;
+            margin-bottom: 10px;
+        }
+
+        .unavailable-message {
+            font-size: 15px;
+            color: #6b7280;
+            line-height: 1.5;
+            margin-bottom: 25px;
+        }
+
+        .btn-back-from-unavailable {
+            margin-top: 10px;
+            padding: 12px 28px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-back-from-unavailable:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
         }
 
         iframe {
@@ -409,54 +784,69 @@
         }
 
         .spinner {
-            width: 50px;
-            height: 50px;
-            margin: 0 auto 20px;
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 25px;
             position: relative;
-        }
-
-        .spinner::before,
-        .spinner::after {
-            content: '';
-            position: absolute;
-            border-radius: 50%;
-            animation: pulse-ring 1.5s ease-out infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .spinner::before {
-            width: 100%;
-            height: 100%;
-            border: 4px solid #667eea;
-            animation-delay: 0s;
+            content: '📊';
+            font-size: 40px;
+            position: absolute;
+            animation: spinIcon 2s ease-in-out infinite;
+        }
+
+        @keyframes spinIcon {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.2); }
         }
 
         .spinner::after {
+            content: '';
+            position: absolute;
             width: 100%;
             height: 100%;
-            border: 4px solid #764ba2;
-            animation-delay: 0.5s;
+            border: 3px solid transparent;
+            border-top-color: #667eea;
+            border-right-color: #764ba2;
+            border-radius: 50%;
+            animation: spin 1.5s linear infinite;
         }
 
-        @keyframes pulse-ring {
-            0% {
-                transform: scale(0.5);
-                opacity: 1;
-            }
-            100% {
-                transform: scale(1.2);
-                opacity: 0;
-            }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         .loading-text {
-            font-size: 16px;
-            font-weight: 500;
+            font-size: 17px;
+            font-weight: 600;
             margin-top: 10px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: pulse-text 2s ease-in-out infinite;
         }
 
-        /* Responsive */
+        @keyframes pulse-text {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        .loading-subtext {
+            font-size: 13px;
+            color: #9ca3af;
+            margin-top: 8px;
+            font-weight: 400;
+        }
+
         @media (max-width: 768px) {
-            .login-card {
+            .login-card, .environment-card {
                 padding: 35px 28px;
             }
 
@@ -472,6 +862,7 @@
 
             .user-info {
                 gap: 10px;
+                flex-wrap: wrap;
             }
 
             .dashboard-title-main {
@@ -480,29 +871,22 @@
 
             .dashboard-title-sub {
                 font-size: 12px;
-                padding-left: 0px;
             }
 
             .user-badge {
                 font-size: 12px;
                 padding: 6px 12px;
             }
+
+            .env-actions {
+                flex-direction: column;
+            }
+
+            .btn-back, .btn-continue {
+                width: 100%;
+            }
         }
 
-        /* Acessibilidade */
-        .visually-hidden {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border: 0;
-        }
-
-        /* Focus visible para navegação por teclado */
         *:focus-visible {
             outline: 2px solid #667eea;
             outline-offset: 2px;
@@ -510,14 +894,12 @@
     </style>
 </head>
 <body>
-    <!-- Partículas decorativas -->
     <div class="particle" style="left: 10%; animation-duration: 15s;"></div>
     <div class="particle" style="left: 30%; animation-duration: 20s; animation-delay: 2s;"></div>
     <div class="particle" style="left: 50%; animation-duration: 18s; animation-delay: 4s;"></div>
     <div class="particle" style="left: 70%; animation-duration: 22s; animation-delay: 1s;"></div>
     <div class="particle" style="left: 90%; animation-duration: 16s; animation-delay: 3s;"></div>
 
-    <!-- Tela de Login -->
     <div class="container" id="loginContainer">
         <div class="login-card">
             <div class="logo-container">
@@ -530,7 +912,7 @@
                 ⚠️ Usuário ou senha incorretos!
             </div>
 
-            <form id="loginForm" onsubmit="return false;">
+            <form id="loginForm">
                 <div class="input-group">
                     <label for="username">Usuário</label>
                     <div class="input-wrapper">
@@ -560,28 +942,78 @@
                     </div>
                 </div>
 
-                <button type="submit" class="btn-login" onclick="login()">
+                <button type="submit" class="btn-login">
                     Entrar no Portal
                 </button>
             </form>
         </div>
     </div>
 
-    <!-- Tela do Dashboard -->
+    <div class="environment-selector" id="environmentSelector">
+        <div class="environment-card">
+            <div class="env-header">
+                <h2>Escolha o Ambiente</h2>
+                <p>Selecione a versão do dashboard que deseja acessar</p>
+            </div>
+
+            <div class="env-options">
+                <label class="env-option production">
+                    <input type="radio" name="environment" value="production">
+                    <div class="env-icon">✓</div>
+                    <div class="env-info">
+                        <div class="env-title">
+                            <h3>Produção</h3>
+                            <span class="env-badge">Estável</span>
+                        </div>
+                        <p class="env-description">Versão atual em uso, estável e validada para operação diária.</p>
+                    </div>
+                </label>
+
+                <label class="env-option homologacao">
+                    <input type="radio" name="environment" value="homologacao">
+                    <div class="env-icon">🔬</div>
+                    <div class="env-info">
+                        <div class="env-title">
+                            <h3>Homologação</h3>
+                            <span class="env-badge">Testes</span>
+                        </div>
+                        <p class="env-description">Ambiente para testes e validação de novas funcionalidades.</p>
+                    </div>
+                </label>
+            </div>
+
+            <div class="env-actions">
+                <button class="btn-back" onclick="backToLogin()">
+                    Voltar
+                </button>
+                <button class="btn-continue" id="btnContinue" onclick="continueToEnvironment()" disabled>
+                    Acessar Dashboard
+                </button>
+            </div>
+        </div>
+    </div>
+
     <div class="dashboard-container" id="dashboardContainer">
-        <div class="dashboard-header">
+        <button class="btn-minimize" id="btnMinimize" onclick="toggleFullscreen()" title="Sair da tela cheia">
+            ⛶
+        </button>
+        <div class="dashboard-header" id="dashboardHeader">
             <div class="user-info">
                 <div class="dashboard-title">
                     <div class="dashboard-title-main">
                         <span>📊</span>
-                        <span id="dashboardTitleMain"></span>
+                        <span id="dashboardTitleMain">InsightHub</span>
                     </div>
                     <div class="dashboard-title-sub" id="dashboardTitleSub"></div>
                 </div>
                 <div class="user-badge" id="userBadge"></div>
+                <div class="env-indicator" id="envIndicator"></div>
             </div>
             <div class="header-actions">
-                <button class="btn-fullscreen" onclick="toggleFullscreen()" title="Tela cheia" aria-label="Tela cheia">
+                <button class="btn-change-env" onclick="changeEnvironment()">
+                    🔄 Trocar Ambiente
+                </button>
+                <button class="btn-fullscreen" onclick="toggleFullscreen()" title="Tela cheia">
                     ⛶
                 </button>
                 <button class="btn-logout" onclick="logout()">
@@ -590,166 +1022,310 @@
             </div>
         </div>
         <div class="dashboard-content" id="dashboardContent">
-            <div class="loading">
+            <div class="loading" id="loading">
                 <div class="spinner"></div>
-                <p class="loading-text">Carregando seu relatório...</p>
+                <div class="loading-text">Preparando seus insights...</div>
+                <div class="loading-subtext">Aguarde um momento</div>
             </div>
+            <div class="unavailable-container" id="unavailableContainer" style="display: none;">
+                <div class="unavailable-icon"></div>
+                <h2 class="unavailable-title">Ambiente Indisponível</h2>
+                <p class="unavailable-message">
+                    Este dashboard ainda não foi configurado.
+                </p>
+                <button class="btn-back-from-unavailable" onclick="changeEnvironment()">
+                    ← Voltar
+                </button>
+            </div>
+            <iframe id="dashboardFrame" style="display: none;"></iframe>
         </div>
     </div>
 
     <script>
-        // ========================================
-        // CONFIGURAÇÕES
-        // ========================================
-        
+        // Configuração de ambientes
+        const environments = {
+            production: {
+                url: 'https://app.powerbi.com/view?r=SEU_LINK_PRODUCAO',
+                title: 'Dashboard de Produção',
+                subtitle: 'Ambiente de Produção - Dados Oficiais'
+            },
+            homologacao: {
+                url: 'https://app.powerbi.com/view?r=SEU_LINK_HOMOLOGACAO',
+                title: 'Dashboard de Homologação',
+                subtitle: 'Ambiente de Homologação - Testes e Validação'
+            }
+        };
+
+        // Usuários válidos
         const usuarios = {
             'GuilhermeBrito': {
                 senha: 'G545862',
-                powerbi: 'https://app.powerbi.com/view?r=eyJrIjoiZDYwMDk1M2UtY2YwOS00MDdkLTk3MzUtMTI1MzU4YTc1OWY5IiwidCI6IjE0Y2JkNWE3LWVjOTQtNDZiYS1iMzE0LWNjMGZjOTcyYTE2MSIsImMiOjh9',
+                powerbi: {
+                    production: 'https://app.powerbi.com/view?r=eyJrIjoiZDYwMDk1M2UtY2YwOS00MDdkLTk3MzUtMTI1MzU4YTc1OWY5IiwidCI6IjE0Y2JkNWE3LWVjOTQtNDZiYS1iMzE0LWNjMGZjOTcyYTE2MSIsImMiOjh9',
+                    homologacao: 'https://app.powerbi.com/view?r=eyJrIjoiZDYwMDk1M2UtY2YwOS00MDdkLTk3MzUtMTI1MzU4YTc1OWY5IiwidCI6IjE0Y2JkNWE3LWVjOTQtNDZiYS1iMzE0LWNjMGZjOTcyYTE2MSIsImMiOjh9'
+                },
                 titulo: 'InsightHub | Estratégia orientada por dados',
                 subtitulo: 'Portal de Indicadores',
                 nome: 'Studio casa'
             },
             'FOliveira': {
                 senha: 'F12345',
-                powerbi: 'https://app.powerbi.com/view?r=eyJrIjoiOGIyZTVmMTMtYjZiMy00ZDU4LTgxMjAtMjQ1YTVhODI5NDNkIiwidCI6Ijg4OTY3NzBlLTI5YjYtNDNjOC05YjAyLWZjMzhhZDVhMGUyMCJ9',
+                powerbi: {
+                    production: 'https://app.powerbi.com/view?r=eyJrIjoiOGIyZTVmMTMtYjZiMy00ZDU4LTgxMjAtMjQ1YTVhODI5NDNkIiwidCI6Ijg4OTY3NzBlLTI5YjYtNDNjOC05YjAyLWZjMzhhZDVhMGUyMCJ9',
+                    homologacao: 'https://app.powerbi.com/view?r=eyJrIjoiOGIyZTVmMTMtYjZiMy00ZDU4LTgxMjAtMjQ1YTVhODI5NDNkIiwidCI6Ijg4OTY3NzBlLTI5YjYtNDNjOC05YjAyLWZjMzhhZDVhMGUyMCJ9'
+                },
                 titulo: 'FOliveira',
                 subtitulo: 'Dashboard',
                 nome: 'FOliveira'
             },
             'GVSGrupo': {
                 senha: '@ggvs1225',
-                powerbi: 'https://app.powerbi.com/view?r=eyJrIjoiOGIyZTVmMTMtYjZiMy00ZDU4LTgxMjAtMjQ1YTVhODI5NDNkIiwidCI6Ijg4OTY3NzBlLTI5YjYtNDNjOC05YjAyLWZjMzhhZDVhMGUyMCJ9',
+                powerbi: {
+                    production: 'https://app.powerbi.com/view?r=eyJrIjoiOGIyZTVmMTMtYjZiMy00ZDU4LTgxMjAtMjQ1YTVhODI5NDNkIiwidCI6Ijg4OTY3NzBlLTI5YjYtNDNjOC05YjAyLWZjMzhhZDVhMGUyMCJ9',
+                    homologacao: 'https://app.powerbi.com/view?r=eyJrIjoiOGIyZTVmMTMtYjZiMy00ZDU4LTgxMjAtMjQ1YTVhODI5NDNkIiwidCI6Ijg4OTY3NzBlLTI5YjYtNDNjOC05YjAyLWZjMzhhZDVhMGUyMCJ9'
+                },
                 titulo: 'InsightHub | Estratégia orientada por dados',
                 subtitulo: 'Portal de Indicadores',
                 nome: 'GVS Grupo'
             }
         };
-        
-        let usuarioLogado = null;
+
+        let currentUser = null;
+        let currentEnvironment = null;
+        let isFullscreen = false;
+
+        // Toggle de senha
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const toggle = document.querySelector('.password-toggle');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggle.textContent = '🙈';
+            } else {
+                passwordInput.type = 'password';
+                toggle.textContent = '👁️';
+            }
+        }
+
+        // Login
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            login();
+        });
 
         function login() {
             const username = document.getElementById('username').value.trim();
             const password = document.getElementById('password').value;
             const errorMessage = document.getElementById('errorMessage');
 
+            // Validação
             if (usuarios[username] && usuarios[username].senha === password) {
+                currentUser = username;
+                currentEnvironment = 'production'; // Define produção como padrão
                 errorMessage.style.display = 'none';
-                usuarioLogado = username;
                 
+                // Esconde login e vai direto para o dashboard de produção
                 document.getElementById('loginContainer').style.display = 'none';
-                document.getElementById('dashboardContainer').style.display = 'block';
-                
-                // Atualizar títulos e badge
-                document.getElementById('dashboardTitleMain').textContent = usuarios[username].titulo;
-                document.getElementById('dashboardTitleSub').textContent = usuarios[username].subtitulo;
-                document.getElementById('userBadge').textContent = usuarios[username].nome || username;
-                
-                loadPowerBI(usuarios[username].powerbi);
-                
-                sessionStorage.setItem('loggedIn', 'true');
-                sessionStorage.setItem('username', username);
+                showDashboard(environments.production);
             } else {
                 errorMessage.style.display = 'block';
                 document.getElementById('password').value = '';
-                document.getElementById('password').focus();
             }
         }
 
-        function loadPowerBI(url) {
-            const content = document.getElementById('dashboardContent');
-            
-            setTimeout(() => {
-                content.innerHTML = `
-                    <iframe 
-                        src="${url}" 
-                        frameborder="0" 
-                        allowFullScreen="true"
-                        title="Dashboard Power BI">
-                    </iframe>
-                `;
-            }, 1000);
-        }
-
-        function logout() {
-            sessionStorage.clear();
-            usuarioLogado = null;
-            
-            document.getElementById('dashboardContainer').style.display = 'none';
-            document.getElementById('loginContainer').style.display = 'flex';
-            document.getElementById('dashboardContent').innerHTML = `
-                <div class="loading">
-                    <div class="spinner"></div>
-                    <p class="loading-text">Carregando seu relatório...</p>
-                </div>
-            `;
-            
-            document.getElementById('username').value = '';
-            document.getElementById('password').value = '';
-        }
-
-        function togglePassword() {
-            const passwordInput = document.getElementById('password');
-            const icon = document.querySelector('.password-toggle');
-            
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                icon.textContent = '🙈';
-            } else {
-                passwordInput.type = 'password';
-                icon.textContent = '👁️';
-            }
-        }
-
-        function toggleFullscreen() {
-            const elem = document.getElementById('dashboardContent');
-            
-            if (!document.fullscreenElement) {
-                elem.requestFullscreen().catch(err => {
-                    console.log('Erro ao entrar em tela cheia:', err);
-                });
-            } else {
-                document.exitFullscreen();
-            }
-        }
-
-        // Enter para login
-        ['password', 'username'].forEach(id => {
-            document.getElementById(id).addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') login();
+        // Seleção de ambiente
+        document.querySelectorAll('.env-option').forEach(option => {
+            option.addEventListener('click', function() {
+                selectEnvironment(this.querySelector('input').value);
             });
         });
 
-        // Restaurar sessão
-        window.onload = function() {
-            if (sessionStorage.getItem('loggedIn') === 'true') {
-                const username = sessionStorage.getItem('username');
-                if (usuarios[username]) {
-                    usuarioLogado = username;
-                    document.getElementById('loginContainer').style.display = 'none';
-                    document.getElementById('dashboardContainer').style.display = 'block';
-                    
-                    // Atualizar títulos e badge
-                    document.getElementById('dashboardTitleMain').textContent = usuarios[username].titulo;
-                    document.getElementById('dashboardTitleSub').textContent = usuarios[username].subtitulo;
-                    document.getElementById('userBadge').textContent = usuarios[username].nome || username;
-                    
-                    loadPowerBI(usuarios[username].powerbi);
-                }
+        function selectEnvironment(env) {
+            // Remove seleção anterior
+            document.querySelectorAll('.env-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+
+            // Adiciona seleção atual
+            const selectedOption = document.querySelector(`.env-option.${env}`);
+            selectedOption.classList.add('selected');
+            
+            // Marca o radio button
+            selectedOption.querySelector('input').checked = true;
+
+            // Habilita botão continuar
+            document.getElementById('btnContinue').disabled = false;
+            
+            currentEnvironment = env;
+        }
+
+        function continueToEnvironment() {
+            if (!currentEnvironment) return;
+
+            const env = environments[currentEnvironment];
+            
+            // Esconde seletor de ambiente
+            document.getElementById('environmentSelector').style.display = 'none';
+            
+            // Mostra dashboard
+            showDashboard(env);
+        }
+
+        function showDashboard(env) {
+            const dashboardContainer = document.getElementById('dashboardContainer');
+            const frame = document.getElementById('dashboardFrame');
+            const loading = document.getElementById('loading');
+            const unavailableContainer = document.getElementById('unavailableContainer');
+            
+            // Pega dados do usuário
+            const userData = usuarios[currentUser];
+            
+            // Verifica se o link do ambiente existe
+            const dashboardUrl = userData.powerbi[currentEnvironment];
+            
+            // Atualiza informações do header
+            document.getElementById('dashboardTitleMain').textContent = userData.titulo;
+            document.getElementById('dashboardTitleSub').textContent = userData.subtitulo;
+            document.getElementById('userBadge').textContent = userData.nome;
+            
+            const envIndicator = document.getElementById('envIndicator');
+            envIndicator.textContent = currentEnvironment === 'production' ? '✓ Produção' : '🔬 Homologação';
+            envIndicator.className = 'env-indicator ' + currentEnvironment;
+            
+            // Mostra container do dashboard
+            dashboardContainer.style.display = 'block';
+            
+            // Verifica se o link existe e não está vazio
+            if (!dashboardUrl || dashboardUrl.trim() === '' || dashboardUrl.includes('SEU_LINK')) {
+                // Mostra tela de indisponível
+                loading.style.display = 'none';
+                frame.style.display = 'none';
+                unavailableContainer.style.display = 'block';
+            } else {
+                // Esconde tela de indisponível
+                unavailableContainer.style.display = 'none';
+                
+                // Carrega iframe com URL específica do usuário e ambiente
+                frame.src = dashboardUrl;
+                
+                // Esconde loading quando iframe carregar
+                frame.onload = function() {
+                    loading.style.display = 'none';
+                    frame.style.display = 'block';
+                };
             }
         }
 
-        // Auto-focus no campo de usuário
-        setTimeout(() => {
-            document.getElementById('username')?.focus();
-        }, 100);
+        function changeEnvironment() {
+            // Esconde dashboard
+            document.getElementById('dashboardContainer').style.display = 'none';
+            
+            // Esconde tela de indisponível se estiver visível
+            document.getElementById('unavailableContainer').style.display = 'none';
+            
+            // Mostra seletor de ambiente
+            document.getElementById('environmentSelector').style.display = 'block';
+            
+            // Reseta loading
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('dashboardFrame').style.display = 'none';
+        }
+
+        function backToLogin() {
+            // Se há um dashboard aberto, volta para ele
+            if (currentUser && currentEnvironment) {
+                document.getElementById('environmentSelector').style.display = 'none';
+                document.getElementById('dashboardContainer').style.display = 'block';
+            } else {
+                // Senão, volta para tela de login
+                document.getElementById('environmentSelector').style.display = 'none';
+                document.getElementById('loginContainer').style.display = 'block';
+                
+                // Limpa seleção
+                document.querySelectorAll('.env-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                    opt.querySelector('input').checked = false;
+                });
+                document.getElementById('btnContinue').disabled = true;
+                currentEnvironment = null;
+                
+                // Limpa formulário
+                document.getElementById('username').value = '';
+                document.getElementById('password').value = '';
+            }
+        }
+
+        function logout() {
+            // Reseta tudo
+            currentUser = null;
+            currentEnvironment = null;
+            isFullscreen = false;
+            
+            // Esconde dashboard
+            document.getElementById('dashboardContainer').style.display = 'none';
+            
+            // Mostra login
+            document.getElementById('loginContainer').style.display = 'block';
+            
+            // Limpa formulário
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+            document.getElementById('errorMessage').style.display = 'none';
+            
+            // Reseta iframe
+            const frame = document.getElementById('dashboardFrame');
+            frame.src = '';
+            frame.style.display = 'none';
+            document.getElementById('loading').style.display = 'block';
+            
+            // Reseta fullscreen
+            if (document.fullscreenElement) {
+                document.exitFullscreen();
+            }
+            document.getElementById('dashboardHeader').classList.remove('hidden');
+            document.getElementById('dashboardContent').classList.remove('fullheight');
+            document.getElementById('btnMinimize').classList.remove('show');
+        }
+
+        function toggleFullscreen() {
+            const header = document.getElementById('dashboardHeader');
+            const content = document.getElementById('dashboardContent');
+            const btnMinimize = document.getElementById('btnMinimize');
+            
+            if (!document.fullscreenElement) {
+                // Entra em fullscreen
+                document.documentElement.requestFullscreen();
+                header.classList.add('hidden');
+                content.classList.add('fullheight');
+                btnMinimize.classList.add('show');
+                isFullscreen = true;
+            } else {
+                // Sai do fullscreen
+                document.exitFullscreen();
+                header.classList.remove('hidden');
+                content.classList.remove('fullheight');
+                btnMinimize.classList.remove('show');
+                isFullscreen = false;
+            }
+        }
+
+        // Detecta quando sai do fullscreen pelo ESC
+        document.addEventListener('fullscreenchange', function() {
+            if (!document.fullscreenElement && isFullscreen) {
+                document.getElementById('dashboardHeader').classList.remove('hidden');
+                document.getElementById('dashboardContent').classList.remove('fullheight');
+                document.getElementById('btnMinimize').classList.remove('show');
+                isFullscreen = false;
+            }
+        });
+
+        // Suporte para Enter na toggle de senha
+        document.querySelector('.password-toggle').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                togglePassword();
+            }
+        });
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
